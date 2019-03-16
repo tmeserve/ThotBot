@@ -81,4 +81,4 @@ async def send_messages(channel, dir, delete=True):
         os.system("rmdir /Q /S " + dir)
     await client.send_message(channel, "enjoy bitches")
 
-client.run('NTUyMzEyMzAyNzQ1OTQ0MDY1.D19shA.Xsqtvxfv66ya3tk_IamuOUTCJZ4')
+client.run('')
