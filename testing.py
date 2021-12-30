@@ -6,6 +6,8 @@ mimetypes.init()
 
 cl = Client()
 
+# cl.set_proxy('20.47.108.204')
+
 user = ''
 password = ''
 
@@ -28,6 +30,20 @@ def load_secrets():
     user = file['username']
     password = file['password']
 
+def load_proxies():
+    global user, password
+    f = open('Free_Proxy_List.json')
+
+    file = json.load(f)
+
+    for obj in file:
+        try:
+            cl.set_proxy(obj['ip'])
+            cl.login(user, password)
+        except:
+            print('yikes')
+            pass
+
 def is_media_file(filename):
     mimestart = mimetypes.guess_type(filename)[0]
 
@@ -35,7 +51,7 @@ def is_media_file(filename):
         mimestart = mimestart.split('/')[0]
 
         if mimestart in ['audio', 'video', 'image']:
-            return True
+            return [True, mimestart]
 
     return False
 
@@ -43,23 +59,41 @@ def move_downloads():
     for entry in os.scandir('.'):
         if entry.is_file:
             if is_media_file(entry.path):
-                shutil.move()
+                mimestart = mimetypes.guess_type(entry.path)[0]
 
-    # shutil.move()
+                print(mimestart)
+
+                if mimestart != None:
+                    mimestart = mimestart.split('/')[0]
+
+                    if mimestart == 'audio':
+                        shutil.move('.\\download\\testing\\audio')
+                        print('moved audio')
+                    elif mimestart == 'video':
+                        shutil.move('.\\download\\testing\\video')
+                        print('moved video')
+                    elif mimestart == 'image':
+                        shutil.move('.\\download\\testing\\image')
+                        print('moved image')
+                    else:
+                        print(mimestart)
+                    
+                    
 
 if __name__ == '__main__':
     load_secrets()
-
-    cl.login(user, password)
+    # load_proxies()
 
     # user_id = cl.user_id_from_username('sportzalien')
-    # medias = cl.user_medias(user_id, 1)
+    # medias = cl.user_medias(user_id, 4)
 
+    cl.login(user, password)
     
 
     # print(medias)
 
-    # thot = Thot(cl)
-    # thot.grab_posts('sportzalien')
+    thot = Thot(cl)
+    thot.grab_posts('sportzalien', 4)
+    # thot.grab_stories(input('user'), 4)
 
     move_downloads()
