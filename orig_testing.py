@@ -94,6 +94,10 @@ if __name__ == '__main__':
 
     thot = Thot(cl)
     thot.grab_posts('sportzalien', 4)
+    thot.grab_hashtags('in_and_out', 4)
+    thot.grab_collections('Pet Ads', 4)
+    thot.grab_stories('dogekeeper', 4)
+
     # thot.grab_stories(input('user'), 4)
 
     move_downloads()
