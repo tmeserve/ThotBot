@@ -9,17 +9,26 @@ class Instagram:
 
     def __init__(self, user, password):
         if type(user) == str and type(password) == str:
-            self.client.login(user, password)    
+            self.__user = user
+            self.__pass = password
+            self.client.login(user, password)
+    
+    def getUser(self):
+        return self.__user
+    
+    def getPass(self):
+        return self.__pass
 
-    def load_proxies(self, user, password):
-        f = open('Free_Proxy_List.json')
+    # In Util
+    # def load_proxies(self, user, password):
+    #     f = open('Free_Proxy_List.json')
 
-        file = json.load(f)
+    #     file = json.load(f)
 
-        for obj in file:
-            try:
-                self.client.set_proxy(obj['ip'])
-                self.client.login(user, password)
-            except:
-                print('yikes')
-                pass
+    #     for obj in file:
+    #         try:
+    #             self.client.set_proxy(obj['ip'])
+    #             self.client.login(user, password)
+    #         except:
+    #             print('yikes')
+    #             pass

@@ -37,7 +37,7 @@ def move_downloads():
                     else:
                         print(mimestart)
 
-def load_proxies(client, user, password):
+def load_proxies(client : Client, user, password):
     f = open('Free_Proxy_List.json')
 
     file = json.load(f)
@@ -49,3 +49,13 @@ def load_proxies(client, user, password):
         except:
             print('yikes')
             pass
+
+def load_secrets():
+    f = open('secrets.json')
+
+    file = json.load(f)
+
+    user = file['username']
+    password = file['password']
+
+    return user, password
